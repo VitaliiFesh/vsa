@@ -29,14 +29,14 @@ elif [ "$scheduler" == "deadline" ]; then
 elif [ "$scheduler" == "cfq" ]; then
     read -p 'SSD or HDD?: ' type
 
-    if [ "$type" == "SSD" ]; then
+    shopt -s nocasematch; if [[ "$type" == "SSD" ]]; then
     
         echo $scheduler > /sys/block/$disk/queue/scheduler
         cat /sys/block/$disk/queue/scheduler
         sed -i -e '/^ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="sd\[a-z\]"/ s/^/#/;' $path
         sed -i -e "/^ACTION==\"add|change\", SUBSYSTEM==\"block\", KERNEL==\"$disk\"/d" $path
         sed -i "s/non-rotating disks/&\nACTION==\"add|change\", SUBSYSTEM==\"block\", KERNEL==\"$disk\", ATTR{queue\/scheduler}=\"$scheduler\", ATTR{queue\/read_ahead_kb}=\"0\"/" $path
-    elif [ "$type" == "HDD" ]; then
+    shopt -s nocasematch; elif [[ "$type" == "HDD" ]]; then
     
         echo $scheduler > /sys/block/$disk/queue/scheduler
         cat /sys/block/$disk/queue/scheduler
