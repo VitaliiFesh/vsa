@@ -5,4 +5,4 @@ alias vsa_download="sudo wget https://ovf.starwind.com/tmplink/starwind-update.t
 alias vsa_start="systemctl start StarWindVSA"
 alias vsa_stop="systemctl stop StarWindVSA"
 alias vsa_io="/opt/StarWind/StarWindVSA/drive_c/StarWind/script-io.sh"
-
+alias vsa_management_ip="sudo /opt/StarWind/StarWindVSA/drive_c/StarWind/setup-mngt-ip.sh"
