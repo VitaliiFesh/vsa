@@ -1,5 +1,5 @@
 set -e
-path='/etc/sysconfig/network-scripts/ifcfg-ens224' 
+path='/etc/sysconfig/network-scripts/ifcfg-ens192' 
 read -p 'IP address: ' ip
 
 if [[ $ip =~ ^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$ ]]; then
