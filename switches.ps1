@@ -1,5 +1,6 @@
 #!/usr/bin/pwsh
 
+Import-Module ./functions_validation.ps1
 $env:PSModulePath="/root/.local/share/powershell/Modules:/usr/local/share/powershell/Modules:/opt/microsoft/powershell/7/Modules"
 $env:HOME="/root"
 Set-PowerCLIConfiguration -InvalidCertificateAction ignore -Confirm:$false | Out-Null
@@ -32,19 +33,8 @@ foreach ($switch in $switches1) {
 
 #StarWind VM networks
 #Find a VSA VM on the host
-$vm = Get-VM | Where-Object {$_.Name -like '*VSA*' -or $_.Name -like '*StarWind*' -or $_.Name -like '*SW*'}
-if ($vm.Count -eq 0) {
-    Write-Error "StarWind VSA VM is not found"
-    $vmName = Read-Host "Enter StarWind VSA VM name from ESXi"
-} elseif ($vm.Count -gt 1) {
-    Write-Warning "Multiple VMs are found"
-    $vmName = Read-Host "Enter StarWind VSA VM name from ESXi"
-    Write-Host "after entering point"
-}
-
-Write-Host "Script is continuing after the elseif block."
-Write-Host "$($vm.Name)" -f blue
-
+$vmName = "StarWindVSA_01_Feshchenko"
+VSA-VM "$vmName"
 
 Disconnect-VIServer $ESXiHost1 -Confirm:$false
 
