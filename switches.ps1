@@ -24,10 +24,12 @@ $switches_1 = Get-VirtualSwitch -VMHost $ESXiHost1 | Select-Object Name, Nic, MT
 #StarWind VM networks
 #Find a VSA VM on the host
 $vmName = "StarWindVSA_01_Feshchenko"
+Get-VirtualPortGroup
+Get-VMHostNetworkAdapter -Name vmk* | Select-Object VMHost, Name, PortGroupName, IP, SubnetMask, MTU, vMotionEnabled
 VSA-VM "$vmName"
 
 # Get host datastore
-VSA-HostDatastore "$ESXiHost1"
+$datastore1 = VSA-HostDatastore "$ESXiHost1"
 Disconnect-VIServer $ESXiHost1 -Confirm:$false
 
 
@@ -36,7 +38,7 @@ Connect-VIServer $ESXiHost2 -User $ESXiUser2 -Password $ESXiPassword2 | Out-Null
 
 #Getting switch info via the command below
 $switches_2 = Get-VirtualSwitch -VMHost $ESXiHost2 | Select-Object Name, Nic, MTU
-
+$datastore2 = VSA-HostDatastore "$EsxiHost2"
 
 Disconnect-VIServer $ESXiHost2 -Confirm:$false
 
@@ -45,9 +47,12 @@ Disconnect-VIServer $ESXiHost2 -Confirm:$false
 $table1 = $switches_1 | Format-Table -AutoSize | Out-String
 $table2 = $switches_2 | Format-Table -AutoSize | Out-String
 
-Write-Output $ESXiHost1
+Write-Host $ESXiHost1 -f blue
 Write-Output $table1 
-Write-Output $ESXiHost2
+Write-Host $ESXiHost2 -f blue
 Write-Output $table2
 
-
+Write-Host $ESXiHost1 -f blue
+#$datastore1
+Write-Host $ESXiHost1 -f blue
+#$datastore2
