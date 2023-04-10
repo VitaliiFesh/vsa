@@ -1,4 +1,10 @@
 # Connecting to VSA VM and get VM settings data
+function VSA-Name {
+    $VSAName = Read-Host "Enter the VSA VM name"
+    $result = Get-VM -Name $VSAName
+    Write-Host $result
+}
+
 function VSA-VM {
     param($vmName)
     $vm = Get-VM -Name $vmname

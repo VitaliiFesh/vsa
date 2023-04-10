@@ -9,6 +9,7 @@ Set-PowerCLIConfiguration -InvalidCertificateAction ignore -Confirm:$false | Out
 $ESXiHost1 = "192.168.13.192"
 $ESXiUser1 = "starwind_rescan"
 $ESXiPassword1 = "Zxcvb12345!"
+#$vmName1 = VSA-Name
 
 $ESXiHost2 = "192.168.13.191" #in the beggining it needs to ask how many nodes and their IPs
 $ESXiUser2 = "starwind_rescan"
@@ -23,11 +24,11 @@ $switches_1 = Get-VirtualSwitch -VMHost $ESXiHost1 | Select-Object Name, Nic, MT
 
 #StarWind VM networks
 #Find a VSA VM on the host
-$vmName = "StarWindVSA_01_Feshchenko"
+$vmName1 = "StarWindVSA_01_Feshchenko"
 #Get-VirtualPortGroup
 #Get-VMHostNetworkAdapter -Name vmk* | Select-Object VMHost, Name, PortGroupName, IP, SubnetMask, MTU, vMotionEnabled
-VSA-VM "$vmName"
-
+VSA-VM "$vmName1"
+#Get-NetIPAddress
 # Get host datastore
 $datastore1 = VSA-HostDatastore "$ESXiHost1"
 Disconnect-VIServer $ESXiHost1 -Confirm:$false
